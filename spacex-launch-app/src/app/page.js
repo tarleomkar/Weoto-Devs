@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { FilterLogic } from "./components/FilterLogic";
 import { LaunchCard } from "./components/LaunchCard";
-import Image from "next/image";
+import { Rocket } from "lucide-react";
 
 // Fetch data with optional filters
 async function fetchLaunches(filters) {
@@ -23,7 +23,9 @@ async function fetchLaunches(filters) {
 }
 
 // Main component
+// Main component
 export default async function Home({ searchParams }) {
+  // Await searchParams first
   const filters = {
     launch_year: searchParams?.launch_year,
     launch_success:
@@ -40,17 +42,18 @@ export default async function Home({ searchParams }) {
         : undefined,
   };
 
+  // Fetch launches after setting up the filters
   const launches = await fetchLaunches(filters);
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="container p-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-8 sm:gap-12 items-center sm:items-start">
         <h1 className="text-2xl font-bold">SpaceX Launch Programs</h1>
 
         {/* Filters Component */}
         <FilterLogic currentFilters={filters} />
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 w-full">
+        <div className="launch-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-4 w-full">
           {launches.map((launch) => (
             <LaunchCard key={launch.flight_number} launch={launch} />
           ))}
