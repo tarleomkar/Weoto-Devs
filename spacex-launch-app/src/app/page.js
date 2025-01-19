@@ -1,52 +1,64 @@
 import { Button } from "@/components/ui/button";
+import { FilterLogic } from "./components/FilterLogic";
+import { LaunchCard } from "./components/LaunchCard";
 import Image from "next/image";
 
-// Fetch data directly in the component
-export default async function Home() {
-  const res = await fetch("https://api.spacexdata.com/v3/launches?limit=100");
-  const launches = await res.json();
+// Fetch data with optional filters
+async function fetchLaunches(filters) {
+  const params = new URLSearchParams();
+  params.append("limit", "100");
+
+  if (filters.launch_year) {
+    params.append("launch_year", filters.launch_year);
+  }
+  if (filters.launch_success !== undefined) {
+    params.append("launch_success", filters.launch_success.toString());
+  }
+  if (filters.land_success !== undefined) {
+    params.append("land_success", filters.land_success.toString());
+  }
+
+  const res = await fetch(`https://api.spacexdata.com/v3/launches?${params.toString()}`);
+  return res.json();
+}
+
+// Main component
+export default async function Home({ searchParams }) {
+  const filters = {
+    launch_year: searchParams?.launch_year,
+    launch_success:
+      searchParams?.launch_success === "true"
+        ? true
+        : searchParams?.launch_success === "false"
+        ? false
+        : undefined,
+    land_success:
+      searchParams?.land_success === "true"
+        ? true
+        : searchParams?.land_success === "false"
+        ? false
+        : undefined,
+  };
+
+  const launches = await fetchLaunches(filters);
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1 className="text-2xl font-bold">SpaceX Launch Programs</h1>
 
+        {/* Filters Component */}
+        <FilterLogic currentFilters={filters} />
+
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 w-full">
           {launches.map((launch) => (
-            <div
-              key={launch.flight_number}
-              className="border rounded-lg p-4 shadow-md bg-white"
-            >
-              <Image
-                src={
-                  launch.links.mission_patch_small ||
-                  "https://via.placeholder.com/150"
-                }
-                alt={launch.mission_name}
-                width={150}
-                height={150}
-                className="w-full h-auto"
-              />
-              <h2 className="text-lg font-semibold mt-2">
-                {launch.mission_name}
-              </h2>
-              <p className="text-sm">
-                <strong>Launch Year:</strong> {launch.launch_year}
-              </p>
-              <p className="text-sm">
-                <strong>Launch Success:</strong>{" "}
-                {launch.launch_success ? "Yes" : "No"}
-              </p>
-              <Button
-                as="a"
-                href={launch.links.video_link || "#"}
-                target="_blank"
-                className="mt-2"
-              >
-                Watch Launch
-              </Button>
-            </div>
+            <LaunchCard key={launch.flight_number} launch={launch} />
           ))}
+          {launches.length === 0 && (
+            <div className="col-span-full text-center py-12 text-gray-500">
+              No launches found with the selected filters.
+            </div>
+          )}
         </div>
       </main>
     </div>
