@@ -28,6 +28,10 @@ export function LaunchCard({ launch }: { launch: Launch }) {
           <Rocket className="w-4 h-4" />
           <span>{launch.rocket.rocket_name}</span>
         </div>
+        <div className="flex items-center gap-2">
+          <p>Type:</p>
+          <span>{launch.rocket.rocket_type}</span>
+        </div>
         <div className="space-x-2">
           <Badge variant={launch.launch_success ? "default" : "destructive"}>
             Launch: {launch.launch_success ? "Success" : "Failed"}
