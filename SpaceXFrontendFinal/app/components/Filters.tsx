@@ -30,7 +30,7 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
       <div className="space-y-4">
         {/* Launch Year */}
         <div>
-          <h3 className="font-sans mb-2 border-b border-gray-300 pb-1 text-center">
+          <h3 className="font-sans text-xl mb-2 border-b border-gray-300 pb-1 text-center">
             Launch Year
           </h3>
           <div className="grid grid-cols-2 gap-2">
@@ -54,7 +54,7 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
 
         {/* Successful Launch */}
         <div>
-          <h3 className="font-sans mb-2 border-b border-gray-300 pb-1 text-center">
+          <h3 className="font-sans text-xl mb-2 border-b border-gray-300 pb-1 text-center">
             Successful Launch
           </h3>
           <div className="grid grid-cols-2 gap-2">
@@ -78,7 +78,7 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
 
         {/* Successful Landing */}
         <div>
-          <h3 className="font-sans mb-2 border-b border-gray-300 pb-1 text-center">
+          <h3 className="font-sans text-xl mb-2 border-b border-gray-300 pb-1 text-center">
             Successful Landing
           </h3>
           <div className="grid grid-cols-2 gap-2">
