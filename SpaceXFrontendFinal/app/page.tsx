@@ -37,7 +37,7 @@ export default async function Home({
   return (
     <main className="min-h-screen bg-background flex flex-col">
       <div className="container mx-auto px-4 py-8 flex-1">
-        <div className="flex items-center justify-center gap-4 mb-8">
+        <div className="flex items-start justify-start gap-4 mb-8">
           <Rocket className="w-8 h-8" />
           <h1 className="text-3xl font-bold text-left">SpaceX Launches</h1>
         </div>
