@@ -51,10 +51,12 @@ export default async function Home({
         : undefined,
   };
 
+  const launches = await getLaunches(filters);
+
+  // Pagination Logic
   const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
 
-  const launches = await getLaunches(filters);
   const totalPages = Math.ceil(launches.length / itemsPerPage);
 
   // Calculate start and end index for the current page
@@ -97,12 +99,22 @@ export default async function Home({
             {/* Pagination */}
             {launches.length > 0 && (
               <div className="flex justify-center items-center gap-2 mt-6">
+                {/* Previous Button */}
                 <Button asChild variant="outline" size="sm" disabled={currentPage === 1}>
-                  <a href={getPaginationUrl(currentPage - 1)}>
-                    <ChevronLeft className="h-4 w-4" />
-                    Previous
-                  </a>
+                  {currentPage > 1 ? (
+                    <a href={getPaginationUrl(currentPage - 1)}>
+                      <ChevronLeft className="h-4 w-4" />
+                      Previous
+                    </a>
+                  ) : (
+                    <span className="flex items-center">
+                      <ChevronLeft className="h-4 w-4" />
+                      Previous
+                    </span>
+                  )}
                 </Button>
+
+                {/* Page Numbers */}
                 <div className="flex items-center gap-2">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <Button
@@ -116,11 +128,20 @@ export default async function Home({
                     </Button>
                   ))}
                 </div>
+
+                {/* Next Button */}
                 <Button asChild variant="outline" size="sm" disabled={currentPage === totalPages}>
-                  <a href={getPaginationUrl(currentPage + 1)}>
-                    Next
-                    <ChevronRight className="h-4 w-4" />
-                  </a>
+                  {currentPage < totalPages ? (
+                    <a href={getPaginationUrl(currentPage + 1)}>
+                      Next
+                      <ChevronRight className="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <span className="flex items-center">
+                      Next
+                      <ChevronRight className="h-4 w-4" />
+                    </span>
+                  )}
                 </Button>
               </div>
             )}
