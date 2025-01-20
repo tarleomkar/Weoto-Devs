@@ -17,7 +17,7 @@ export function LaunchCard({ launch }: { launch: Launch }) {
             className="object-contain p-4"
           />
         </div>
-        <CardTitle className="text-xl line-clamp-2">{launch.mission_name}</CardTitle>
+        <CardTitle className="text-xl line-clamp-2 text-purple-800">{launch.mission_name}</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 space-y-4">
         <div className="flex items-center gap-2">
