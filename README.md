@@ -23,7 +23,7 @@ Welcome to the **SpaceX Launches Dashboard**! This project is a web application 
 
 ## 🚦 How to Run
 ### 1. Clone the Repository
-git clone https://github.com/yourusername/spacex-launches-dashboard.git
+git clone [https://github.com/yourusername/spacex-launches-dashboard](https://github.com/tarleomkar/Weoto-Devs).git
 cd spacex-launches-dashboard
 
 2. Install Dependencies
