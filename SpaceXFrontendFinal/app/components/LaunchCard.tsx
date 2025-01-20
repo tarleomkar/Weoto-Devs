@@ -2,7 +2,7 @@ import { Launch } from "../types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { Calendar, Rocket, Link2 } from "lucide-react";
+import { Calendar, Rocket, Link2, Type } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function LaunchCard({ launch }: { launch: Launch }) {
@@ -29,13 +29,15 @@ export function LaunchCard({ launch }: { launch: Launch }) {
           <span>{launch.rocket.rocket_name}</span>
         </div>
         <div className="flex items-center gap-2">
-          <p>Type:</p>
+          <Type className="w-4 h-4" />
           <span>{launch.rocket.rocket_type}</span>
         </div>
         <div className="space-x-2">
+          {/* rocket Success logic*/}
           <Badge variant={launch.launch_success ? "default" : "destructive"}>
             Launch: {launch.launch_success ? "Success" : "Failed"}
           </Badge>
+          {/* landing sucess logic */}
           {launch.rocket.first_stage.cores[0].land_success !== null && (
             <Badge variant={launch.rocket.first_stage.cores[0].land_success ? "default" : "destructive"}>
               Landing: {launch.rocket.first_stage.cores[0].land_success ? "Success" : "Failed"}
