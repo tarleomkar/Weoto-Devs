@@ -12,14 +12,16 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
   const searchParams = useSearchParams();
 
   const updateFilters = (key: keyof FilterState, value: string | boolean) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || "");
 
+    // Toggle filter logic: remove if exists, set if not
     if (params.get(key) === value.toString()) {
       params.delete(key);
     } else {
       params.set(key, value.toString());
     }
 
+    // Update URL with new search params
     router.push(`/?${params.toString()}`);
   };
 
@@ -28,11 +30,9 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
       <h2 className="text-xl font-bold mb-4">Filters</h2>
 
       <div className="space-y-4">
-        {/* Launch Year */}
+        {/* Launch Year Filter */}
         <div>
-          <h3 className="font-sans text-xl mb-2 border-b border-gray-300 pb-1 text-center">
-            Launch Year
-          </h3>
+          <h3 className="font-semibold mb-2">Launch Year</h3>
           <div className="grid grid-cols-2 gap-2">
             {years.map((year) => (
               <Button
@@ -40,11 +40,6 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
                 variant={currentFilters.launch_year === year ? "default" : "outline"}
                 size="sm"
                 onClick={() => updateFilters("launch_year", year)}
-                className={`${
-                  currentFilters.launch_year === year
-                    ? "bg-[#4d9900] text-[#a8dc78] text-black"
-                    : "bg-[#a8dc78] text-lime-600 text-black"
-                } hover:bg-[#4d9900] hover:text-black font-semibold`}
               >
                 {year}
               </Button>
@@ -52,11 +47,9 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
           </div>
         </div>
 
-        {/* Successful Launch */}
+        {/* Successful Launch Filter */}
         <div>
-          <h3 className="font-sans text-xl mb-2 border-b border-gray-300 pb-1 text-center">
-            Successful Launch
-          </h3>
+          <h3 className="font-semibold mb-2">Successful Launch</h3>
           <div className="grid grid-cols-2 gap-2">
             {[true, false].map((value) => (
               <Button
@@ -64,11 +57,6 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
                 variant={currentFilters.launch_success === value ? "default" : "outline"}
                 size="sm"
                 onClick={() => updateFilters("launch_success", value)}
-                className={`${
-                  currentFilters.launch_success === value
-                  ? "bg-[#4d9900] text-[#a8dc78] text-black"
-                  : "bg-[#a8dc78] text-lime-600 text-black"
-              } hover:bg-[#4d9900] hover:text-black font-semibold`}
               >
                 {value ? "Yes" : "No"}
               </Button>
@@ -76,11 +64,9 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
           </div>
         </div>
 
-        {/* Successful Landing */}
+        {/* Successful Landing Filter */}
         <div>
-          <h3 className="font-sans text-xl mb-2 border-b border-gray-300 pb-1 text-center">
-            Successful Landing
-          </h3>
+          <h3 className="font-semibold mb-2">Successful Landing</h3>
           <div className="grid grid-cols-2 gap-2">
             {[true, false].map((value) => (
               <Button
@@ -88,11 +74,6 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
                 variant={currentFilters.land_success === value ? "default" : "outline"}
                 size="sm"
                 onClick={() => updateFilters("land_success", value)}
-                className={`${
-                  currentFilters.land_success === value
-                  ? "bg-[#4d9900] text-[#a8dc78] text-black"
-                  : "bg-[#a8dc78] text-lime-600 text-black"
-              } hover:bg-[#4d9900] hover:text-black font-semibold`}
               >
                 {value ? "Yes" : "No"}
               </Button>
