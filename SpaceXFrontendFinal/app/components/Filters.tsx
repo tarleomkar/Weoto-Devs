@@ -21,6 +21,9 @@ export function Filters({ currentFilters }: { currentFilters: FilterState }) {
       params.set(key, value.toString());
     }
 
+    // Reset page to 1 whenever a filter is updated
+    params.set("page", "1");
+
     // Update URL with new search params
     router.push(`/?${params.toString()}`);
   };

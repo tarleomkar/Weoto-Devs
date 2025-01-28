@@ -1,9 +1,7 @@
 "use client";
-
 import { UseFilteredLaunches } from "../hooks/UseFilteredLaunches";
 import { Filters } from "./Filters";
 import { LaunchCard } from "./LaunchCard";
-// import { FilterState } from "../types";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

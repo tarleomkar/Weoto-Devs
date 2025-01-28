@@ -2,12 +2,16 @@ import { fetchLaunches } from "./services/SpaceXService";
 import { LaunchesClient } from "./components/LaunchesClient";
 import { FilterState } from "./types";
 import { Rocket } from "lucide-react";
+// export const dynamic = "force-dynamic";
 
 export default async function Home({
-  searchParams,
+  searchParams: rawSearchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
+  // Await searchParams to resolve correctly
+  const searchParams = await Promise.resolve(rawSearchParams);
+
   const filters: FilterState = {
     launch_year: searchParams.launch_year,
     launch_success:
